@@ -11,7 +11,6 @@ function somaAB(a, b) {
 
 function exec (describe, it, beforeEach, afterEach, expect, should, assert) {
   afterEach(function () {
-    SnapTest.save();
   })
 
   beforeEach(function () {
@@ -37,6 +36,7 @@ function exec (describe, it, beforeEach, afterEach, expect, should, assert) {
 }
 
 let res = majesty.run(exec)
+SnapTest.save();
 
 print(res.success.length, ' scenarios executed with success and')
 print(res.failure.length, ' scenarios executed with failure.\n')
