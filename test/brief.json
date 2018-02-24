@@ -2,6 +2,7 @@
   "name": "thrust-app",
   "version": "1.0",
   "dependencies": [
-    "thrust-bitcodes/majesty"
+    "thrust-bitcodes/majesty",
+    "filesystem"
   ]
 }

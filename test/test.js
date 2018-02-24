@@ -1,13 +1,17 @@
 let majesty = require('majesty')
-let interceptor = require('../index')
+let SnapTest = require('../index')
 
 function maisUm(numero) {
     return numero + 1;
 }
 
+function somaAB(a, b) {
+    return a + b;
+}
+
 function exec (describe, it, beforeEach, afterEach, expect, should, assert) {
   afterEach(function () {
-    // Função a ser executada antes de cada teste
+    SnapTest.save();
   })
 
   beforeEach(function () {
@@ -16,8 +20,18 @@ function exec (describe, it, beforeEach, afterEach, expect, should, assert) {
 
   describe('Teste Interceptor', function () {
     it('Interceptar funcao mais1', function () {
-      let interceptado = interceptor(maisUm);
+      let interceptado = SnapTest.intercept(maisUm);
       expect(interceptado(23)).to.equal(maisUm(23))
+    })
+
+    it('Interceptar funcao somaAB', function () {
+      let interceptado = SnapTest.intercept(somaAB);
+      expect(interceptado(1, 2)).to.equal(somaAB(1, 2))
+    })
+
+    it('Interceptar funcao mais1 novamente', function () {
+      let interceptado = SnapTest.intercept(maisUm);
+      expect(interceptado(13)).to.equal(maisUm(13))
     })
   })
 }
