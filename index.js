@@ -17,7 +17,8 @@ exports = {
     },
     save: function() {
         console.log(fs.saveToFile)
-        fs.saveToFile('../interceptado.json', JSON.stringify(interceptado, null, 2));
+        const fileContent = JSON.stringify(interceptado, null, 2)
+        fs.saveToFile('interceptado.json', fileContent);
     }
 }
 
