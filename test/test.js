@@ -16,8 +16,8 @@ function exec (describe, it, beforeEach, afterEach, expect, should, assert) {
 
   describe('Teste Interceptor', function () {
     it('Interceptar funcao mais1', function () {
-      let interceptado = interceptor.interceptFunction(maisUm);
-      expect(interceptado(23)).to.equal(24)
+      let interceptado = interceptor(maisUm);
+      expect(interceptado(23)).to.equal(maisUm(23))
     })
   })
 }
