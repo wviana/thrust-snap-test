@@ -2,5 +2,6 @@
   "name": "snap-test",
   "path": "index.js",
   "description": "Criação de teste de forma automática para código existente",
-  "author": "Null Pointer Team"
+  "author": "Null Pointer Team",
+  "version": "0.0.1"
 }
