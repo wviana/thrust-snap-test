@@ -1,9 +1,6 @@
-exports = {
-    interceptFunction: function(fn) {
-        return function() {
-            console.log(arguments);
-            fn(arguments);
-        }
+exports = function(fn) {
+    return function() {
+        console.log(arguments);
+        return fn.apply(this, arguments);
     }
 }
-        
