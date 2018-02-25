@@ -49,8 +49,7 @@ function generateMajestyTest(fileName) {
 
                     Object.keys(jsonFile[c1][c2][c3]["entrada"]).forEach(function(valor){
                         var type_params = typeof jsonFile[c1][c2][c3]["entrada"][valor];
-                        console.log("#################" + type_params);
-                        console.log(type_params);
+                        //console.log(type_params);
                         if ( type_params == "string" ) {
                             content += '"' + jsonFile[c1][c2][c3]["entrada"][valor] + '",';    
                         } else if (type_params == "object"){
@@ -80,7 +79,7 @@ function generateMajestyTest(fileName) {
 
             content += generateFileFooter().join('\n')
             
-            //console.log(content);
+            console.log(content);
             console.log('### generate finished ####################################');
 
             let nome_arq = new java.io.File(fileName).getName();
