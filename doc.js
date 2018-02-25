@@ -1,4 +1,5 @@
 const fs = require('filesystem')
+const files = require('intercepted-files')
 
 function documentarMetodo(chave) {
 
@@ -59,7 +60,8 @@ function getAssinaturas(nomeMetodo, chamadas) {
     return assinaturaReposta;
 }
 
-function read() {
+
+function read(filePath) {
     let json = fs.readJson("test/snaptest.st.json").intercepted;
     let linhasHtml = []
     Object.keys(json).forEach(function(metodo) {
@@ -93,5 +95,5 @@ function imprimirHtml (linhas) {
         "</table>";
 }
 
-read()
 
+files.listFiles().forEach(read)
