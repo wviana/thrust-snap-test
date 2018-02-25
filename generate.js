@@ -49,7 +49,6 @@ function generateMajestyTest(fileName) {
 
                     Object.keys(jsonFile[c1][c2][c3]["entrada"]).forEach(function(valor){
                         var type_params = typeof jsonFile[c1][c2][c3]["entrada"][valor];
-                        //console.log(type_params);
                         if ( type_params == "string" ) {
                             content += '"' + jsonFile[c1][c2][c3]["entrada"][valor] + '",';    
                         } else if (type_params == "object"){
@@ -58,11 +57,11 @@ function generateMajestyTest(fileName) {
                             content += jsonFile[c1][c2][c3]["entrada"][valor] + ',';
                         } else {
                             content += '0,';
-                        } 
-                        
-                        content = content.substring(0, content.length - 1);
-                    });                        
+                        }                        
+                    }); 
                     
+                    content = content.substring(0, content.length - 1);
+
                     if ( typeof output === "string" ) {
                         content += ')).to.equal("' + output + '");\n';    
                     } else if (typeof output === "object") {
