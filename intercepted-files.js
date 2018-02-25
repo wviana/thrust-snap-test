@@ -1,5 +1,4 @@
 const fs = require('filesystem')
-const generate = require('./generate.js')
 
 function listFiles(){
     var folder = new File('./');
@@ -22,5 +21,3 @@ exports = {
     listFiles: listFiles
 }
 
-const files = listFiles();
-generate.executeTestForFolder(files);

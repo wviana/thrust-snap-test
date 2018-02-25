@@ -1,4 +1,5 @@
 const fs = require('filesystem')
+const Files = require('./intercepted-files')
 
 function generateFileHeader(fileName, filePath) {
     const testedFilePath = filePath.replace('./','./app/')
@@ -25,7 +26,6 @@ function generateFileFooter() {
 
 function generateMajestyTest(fileName) {
     var content = '';
-    console.log('### generate #############################################');
     var jsonFile = fs.readJson(fileName);
 
     content += generateFileHeader(fileName, jsonFile.filePath).join('\n')
@@ -47,21 +47,22 @@ function generateMajestyTest(fileName) {
                 
                     content += '\t\t\texpect(provider.' + c2 + '(';
 
+                    const parametros = []
                     Object.keys(jsonFile[c1][c2][c3]["entrada"]).forEach(function(valor){
                         var type_params = typeof jsonFile[c1][c2][c3]["entrada"][valor];
                         if ( type_params == "string" ) {
-                            content += '"' + jsonFile[c1][c2][c3]["entrada"][valor] + '",';    
+                            parametros.push('"' + jsonFile[c1][c2][c3]["entrada"][valor] + '"')    
                         } else if (type_params == "object"){
-                            content += JSON.stringify(jsonFile[c1][c2][c3]["entrada"][valor]) + ',';
+                            parametros.push(JSON.stringify(jsonFile[c1][c2][c3]["entrada"][valor]) + '');
                         } else if (type_params == "number"){
-                            content += jsonFile[c1][c2][c3]["entrada"][valor] + ',';
+                            parametros.push(jsonFile[c1][c2][c3]["entrada"][valor] + '');
                         } else {
-                            content += '0,';
+                            parametros.push('0');
                         }                        
                     }); 
-                    
-                    content = content.substring(0, content.length - 1);
 
+                    content += parametros.join(", ")
+                    
                     if ( typeof output === "string" ) {
                         content += ')).to.equal("' + output + '");\n';    
                     } else if (typeof output === "object") {
@@ -78,12 +79,9 @@ function generateMajestyTest(fileName) {
 
             content += generateFileFooter().join('\n')
             
-            console.log(content);
-            console.log('### generate finished ####################################');
 
             let nome_arq = new java.io.File(fileName).getName();
-            console.log(to_testJs);
-            var to_testJs = nome_arq.replace('.json','') + '.test.js';
+            var to_testJs = nome_arq.replace('st.json','test.js');
             fs.saveToFile('./' + to_testJs, content);
         }
     })
@@ -91,12 +89,6 @@ function generateMajestyTest(fileName) {
     
 }
 
-function executeTestForFolder(files) {
-    files.forEach(function(valor, chave){
-        generateMajestyTest(valor);
-    });
-}
-
-exports = {
-    executeTestForFolder: executeTestForFolder
-}
+Files.listFiles().forEach(function(valor, chave){
+    generateMajestyTest(valor);
+});
