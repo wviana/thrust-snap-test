@@ -9,15 +9,18 @@ function listFiles(){
     for (i = 0; i < listOfFiles.length; i++) {
         const currentFile = listOfFiles[i]
         if (currentFile.isFile()) {
-            if(currentFile.getName().indexOf(".st.json") != -1){
-                arquivos.push(currentFile.getName());
+            var currentFileName = currentFile.getName();
+            if(currentFileName.indexOf(".st.json") != -1){
+                 arquivos.push(currentFile.getName());
             }
         }
     }
     return  arquivos;
 }
 
-
 exports = {
     listFiles: listFiles
 }
+
+const files = listFiles();
+generate.executeTestForFolder(files);
