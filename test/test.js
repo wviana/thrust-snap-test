@@ -1,6 +1,22 @@
 let majesty = require('majesty')
 let SnapTest = require('../index')
 
+// let qualquer;
+
+// const oldRequire = require;
+// function loadRequire() {
+//     function require(fileName) {
+//         const trueRequireResult = oldRequire(fileName);
+//         console.log('Nome do arquivo:' + fileName)
+//         return SnapTest.intercept(trueRequireResult)
+//     }
+
+//     qualquer = require('../qualquer');
+// }
+
+// loadRequire()
+// console.log(qualquer.ola('Wesley'))
+
 function maisUm(numero) {
     return numero + 1;
 }
@@ -16,11 +32,10 @@ let exportObject = {
 
 let exportIntercepted;
 function beforeAll() {
-   exportIntercepted = SnapTest.intercept(exportObject); 
+    exportIntercepted = SnapTest.new('./snaptest').intercept(exportObject); 
 }
 
 function afterAll() {
-    SnapTest.save();
 }
 
 function exec (describe, it, beforeEach, afterEach, expect, should, assert) {
